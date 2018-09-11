@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+{% load static %}
+<head>
+    <script src={% static  'bootstrap/js/jquery.min.js' %}></script>
+    <script src="{% static 'js/jquery.emoji.js' %}"></script>
+    <link rel="stylesheet" href="{% static 'bootstrap/css/bootstrap.min.css' %}">
+    <script type="text/javascript" src="{% static 'js/user_chat.js' %}"></script>
+    <link rel="stylesheet" href="{% static 'css/m_chatStyle.css' %}" type="text/css">
+</head>
+<body onload="init('{{ company_code }}')">
+<div class="chat_box">
+    <div class="chat_head">
+        <img src="{% static 'images/logo_white.png' %}" class="chat_logo" width="100px">
+        <img src="{% static 'images/icon_close.png' %}" class="close" onclick="evaluate_staff()">
+    </div>
+    <div class="chat_messagebox" id="chat_messagebox">
+        <ul id="chat">
+        </ul>
+    </div>
+    <div class="chat_send">
+        <div class="chat_icon">
+            <ul>
+                <li id="emotion" class="emotion" title="表情" style="display: inline-block;float:left">
+                    <img src="{% static 'images/emoticon.png' %}">
+                </li>
+                <li id="file" class="file" title="未选择文件" style="display: inline-block;float:left">
+                    <img src="{% static 'images/file.png' %}">
+                </li>
+                <li id="staff" class="staff" title="转人工" style="display: inline-block;float:left"
+                    onclick="connect_staff()">
+                    <img src="{% static 'images/staff.png' %}">
+                </li>
+            </ul>
+        </div>
+        <div class="chat_msg">
+            <textarea type="text" class="form_control" id="InputMessage"></textarea>
+            <button class="btn btn-primary" id="send_button" onclick="send()" type="submit">Send</button>
+        </div>
+    </div>
+</div>
+</body>
+</html>

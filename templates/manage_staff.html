@@ -1,0 +1,265 @@
+{% extends 'base.html' %}
+{% block content %}
+    <div class="container">
+        <div class="staffHead">
+            <h1>客服人员列表</h1>
+        </div>
+        <div class="modal fade" id="modal-container-238673" role="dialog" aria-labelledby="myModalLabel"
+             aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                        <h4 class="modal-title" id="myModalLabel">
+                            新增人员
+                        </h4>
+                    </div>
+                    <form method="post" enctype="multipart/form-data" action="{% url 'add_staff' %}">
+                        {% csrf_token %}
+                        <div class="modal-body">
+                            <div class="form-group">
+                                <h4>账号</h4>
+                                <input type="text" name="username" id="username" class="form-control" size="50"
+                                       placeholder="账号" required/>
+                            </div>
+                            <div class="form-group">
+                                <h4>账号状态</h4>
+                                <label class="radio-inline">
+                                    <input type="radio" name="is_active" value="True" checked> 启用
+                                </label>
+                                <label class="radio-inline">
+                                    <input type="radio" name="is_active" value="False"> 禁用
+                                </label>
+                            </div>
+                            <div class="form-group">
+                                <h4>初始密码</h4>
+                                <input type="text" name="password" id="staffPassword" class="form-control" size="50"
+                                       placeholder="初始密码" required/>
+                            </div>
+                            <div class="form-group">
+                                <h4>邮箱</h4>
+                                <input type="text" name="email" id="staffEmail" class="form-control" size="50"
+                                       placeholder="邮箱" required/>
+                            </div>
+                            <div class="form-group">
+                                <h4>姓名</h4>
+                                <input type="text" name="name" id="staffName" class="form-control" size="50"
+                                       placeholder="姓名" required/>
+                            </div>
+                            <div class="form-group">
+                                <h4>同时处理会话数</h4>
+                                <input type="number" name="ProcessNum" id="staffProcessNum" class="form-control"
+                                       size="50" placeholder="同时处理会话数" required/>
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="submit" class="btn btn-primary">保存</button>
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">关闭</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+        <div class="form-w3-agile">
+            <a rel="nofollow" id="top_button" href="#modal-container-238673" role="button" class="btn btn-default"
+               data-toggle="modal">新增客服</a>
+            <table class="table  table-bordered table-hover table-condensed table-responsive">
+                <thead>
+                <tr style="color:#ffffff;font-size: 20px; ">
+                    <th width="30" style="text-align: center">
+                        #
+                    </th>
+                    <th style="text-align: center">
+                        账号
+                    </th>
+                    <th style="text-align: center">
+                        姓名
+                    </th>
+                    <th style="text-align: center">
+                        邮箱
+                    </th>
+                    <th style="text-align: center">
+                        在线状态
+                    </th>
+                    <th style="text-align: center">
+                        状态
+                    </th>
+                    <th width="180" style="text-align: center">
+                        操作
+                    </th>
+                </tr>
+                </thead>
+                <tbody>
+                {% for staff, num in staffs %}
+                    <tr style="color:#ffffff">
+                        <td>
+                            {{ num }}
+                        </td>
+                        <td>
+                            {{ staff.username }}
+                        </td>
+                        <td>
+                            {{ staff.name }}
+                        </td>
+                        <td>
+                            {{ staff.email }}
+                        </td>
+                        <td>
+                            {% if staff.status == 0 %}
+                                离线
+                            {% elif staff.status == 1 %}
+                                在线
+                            {% elif staff.status == 2 %}
+                                工作中
+                            {% elif staff.status == 3 %}
+                                繁忙
+                            {% elif staff.status == 4 %}
+                                暂时离开
+                            {% endif %}
+                        </td>
+                        <td>
+                            {% if staff.is_active == True %}
+                                启用
+                            {% else %}
+                                禁用
+                            {% endif %}
+                        </td>
+                        <td style="color:#000000">
+                            <a href="{% url 'staff_detail' %}?staff_id={{ staff.id }}" class="btn btn-default btn-sm"
+                               role="button">详情</a>
+                            <a rel="nofollow" href="#modal-container-modify-staff-{{ staff.id }}" role="button"
+                               class="btn btn-default btn-sm" data-toggle="modal">修改</a>
+                            <a rel="nofollow" href="#modal-container-delete-staff-{{ staff.id }}" role="button"
+                               class="btn btn-danger btn-sm" data-toggle="modal">删除</a>
+                        </td>
+                    </tr>
+                    <div class="modal fade" id="modal-container-modify-staff-{{ staff.id }}" role="dialog"
+                         aria-labelledby="myModalLabel" aria-hidden="true">
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+                                        ×
+                                    </button>
+                                    <h4 class="modal-title" id="myModalLabel">
+                                        修改人员
+                                    </h4>
+                                </div>
+                                <form method="post" enctype="multipart/form-data"
+                                      action="{% url 'modify_staff' staff.id %}">{% csrf_token %}
+                                    <div class="modal-body">
+                                        <div class="form-group">
+                                            <h4>账号</h4>
+                                            <input type="text" name="username"
+                                                   class="form-control" size="50" placeholder="账号"
+                                                   value="{{ staff.username }}" disabled style="color:black;"/>
+                                        </div>
+                                        <div class="form-group">
+                                            <h4>账号状态</h4>
+                                            {% if staff.is_active == True %}
+                                                <label class="radio-inline">
+                                                    <input type="radio" name="is_active"
+                                                           value="True" checked style="color:black;"> 启用
+                                                </label>
+                                                <label class="radio-inline">
+                                                    <input type="radio" name="is_active"
+                                                           value="False"> 禁用
+                                                </label>
+                                            {% else %}
+                                                <label class="radio-inline">
+                                                    <input type="radio" name="is_active"
+                                                           value="True"> 启用
+                                                </label>
+                                                <label class="radio-inline">
+                                                    <input type="radio" name="is_active"
+                                                           value="False" checked> 禁用
+                                                </label>
+                                            {% endif %}
+                                        </div>
+                                        <div class="form-group">
+                                            <h4>密码</h4>
+                                            <input type="text" name="password"
+                                                   class="form-control" size="50" placeholder="初始密码"
+                                                   style="color:black;">
+                                        </div>
+                                        <div class="form-group">
+                                            <h4>邮箱</h4>
+                                            <input type="text" name="email" class="form-control"
+                                                   size="50" placeholder="邮箱" value="{{ staff.email }}"
+                                                   style="color:black;"
+                                                   required/>
+                                        </div>
+                                        <div class="form-group">
+                                            <h4>姓名</h4>
+                                            <input type="text" name="name" class="form-control"
+                                                   size="50" placeholder="姓名" value="{{ staff.name }}"
+                                                   style="color:black;"
+                                                   required/>
+                                        </div>
+                                        <div class="form-group">
+                                            <h4>同时处理会话数</h4>
+                                            <input type="number" name="ProcessNum"
+                                                   class="form-control" size="50" placeholder="同时处理会话数"
+                                                   style="color:black;"
+                                                   value="{{ staff.process_num }}" required/>
+                                        </div>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="submit" class="btn btn-primary">保存</button>
+                                        <button type="button" class="btn btn-secondary" data-dismiss="modal">
+                                            关闭
+                                        </button>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal fade" id="modal-container-delete-staff-{{ staff.id }}" role="dialog"
+                         aria-labelledby="myModalLabel" aria-hidden="true">
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h4 class="modal-title" id="myModalLabel">
+                                        删除确认
+                                    </h4>
+                                </div>
+                                <div class="modal-body">
+                                    <h4>您确定要删除该客服人员吗？</h4>
+                                </div>
+                                <div class="modal-footer">
+                                    <a role="button" class="btn btn-danger"
+                                       href="{% url 'delete_staff' staff.id %}">确定</a>
+                                    <button type="button" class="btn btn-default" data-dismiss="modal">取消
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                {% endfor %}
+                </tbody>
+            </table>
+            <div class="btn-group" role="group">
+                {% if staff_list.has_previous %}
+                    <a href="?page={{ staff_list.previous_page_number }}" role="button" class="btn btn-default btn-sm"
+                       title="上一页">上一页</a>
+                {% else %}
+                    <a role="button" class="btn btn-default btn-sm" title="上一页">上一页</a>
+                {% endif %}
+                {% for p in page_range %}
+                    {% ifequal p staff_list.number %}
+                        <button class="btn btn-default btn-sm active" title="第{{ p }}页">{{ p }}</button>
+                    {% else %}
+                        <a href="?page={{ p }}" role="button" class="btn btn-default btn-sm"
+                           title="第{{ p }}页">{{ p }}</a>
+                    {% endifequal %}
+                {% endfor %}
+                {% if staff_list.has_next %}
+                    <a href="?page={{ staff_list.next_page_number }}" role="button" class="btn btn-default btn-sm"
+                       title="下一页">下一页</a>
+                {% else %}
+                    <a role="button" class="btn btn-default btn-sm" title="下一页">下一页</a>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+{% endblock %}

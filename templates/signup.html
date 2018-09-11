@@ -1,0 +1,22 @@
+{% extends 'base.html' %}
+{% block content %}
+    {% load static %}
+    <div class="m_container">
+        <div class="main-agileits">
+            <div class="form-w3-agile">
+                <h2 class="sub-agileits-w3layouts">注册</h2>
+                <form method="post" enctype="multipart/form-data" action="{% url 'signup_submit' %}">
+                    {% csrf_token %}
+                    <input type="text" id="username" name="username" placeholder="用户名" required/>
+                    <input type="password" id="password" name="password" placeholder="密码" required/>
+                    <input type="password" id="password2" name="password2" placeholder="确认密码" required/>
+                    <input type="email" id="email" name="email" placeholder="邮箱" required=""/>
+                    <input type="text" id="company_name" name="company_name" placeholder="公司名称" required/>
+                    <div class="submit-w3l">
+                        <input type="submit" value="Sign up">
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+{% endblock %}

@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>思密答</title>
+    {% load static %}
+    <link type="favicon" rel="shortcut icon" href="{% static 'images/favicon.ico' %}">
+    <link rel="stylesheet" href="{% static 'bootstrap/css/bootstrap.min.css' %}">
+    <link rel="stylesheet" href="{% static 'css/style.css' %}" media="all"/>
+    <link rel="stylesheet" href="{% static 'css/baseStyle.css' %}" type="text/css">
+    <link rel="stylesheet" href="{% static 'css/message.css' %}" media="all"/>
+    <link rel="stylesheet" href="{% static 'css/forgetPassword.css' %}" media="all"/>
+    <script type="text/javascript" src="{% static  'bootstrap/js/jquery.min.js' %}"></script>
+    <script type="text/javascript" src="{% static  'bootstrap/js/bootstrap.min.js' %}"></script>
+    <script type="text/javascript" src="{% static  'js/message.js' %}"></script>
+    <script type="text/javascript" src="{% static  'js/verification.js' %}"></script>
+    <script type="text/javascript" src="{% static  'js/navigation.js' %}"></script>
+    <link rel="stylesheet" href="{% static 'jquery-ui/jquery-ui.min.css' %}" type="text/css">
+    <script type="text/javascript" src="{% static 'jquery-ui/jquery-ui.min.js' %}"></script>
+    <script type="text/javascript" src="{% static 'js/date.js' %}"></script>
+    <script src="{% static  'js/graphs.js' %}"></script>
+    <link rel="stylesheet" href="{% static 'css/baseStyle.css' %}" type="text/css">
+    <meta name="viewport" content="width=device-width,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no">
+    <link rel="stylesheet" href="{% static 'css/chatHistory.css' %}" type="text/css">
+    <script type="text/javascript" src="{% static 'js/staff_chat.js' %}"></script>
+    <script type="text/javascript" src="{% static 'js/highcharts.js' %}"></script>
+    <script type="text/javascript" src="{% static 'js/exporting.js' %}"></script>
+    <script type="text/javascript" src="{% static 'js/smtp.js' %}"></script>
+    <script type="text/javascript" src="{% static 'js/staff_detail.js' %}"></script>
+</head>
+<body {% if messages %}
+    onload="print_message({% for message in messages %}
+        {% if forloop.last %}
+            '{{ message.tags }}', '{{ message }}'
+        {% endif %}
+    {% endfor %})"
+{% endif %}>
+<div class="base_container">
+    <div class="row clearfix">
+        <div class="column">
+            <nav class="navbar navbar-default navbar-fixed-top" role="navigation">
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle" data-toggle="collapse"
+                            data-target="#bs-example-navbar-collapse-1"><span
+                            class="sr-only">Toggle navigation</span><span class="icon-bar"></span><span
+                            class="icon-bar"></span></button>
+                    <a class="navbar-brand" href="{% url 'index' %}">思密答</a>
+                </div>
+                <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                    <ul class="nav navbar-nav navbar-right">
+                        {% if user.is_authenticated %}
+                            {% if not user.is_company and not user.is_admin %}
+                                <li><a href="staff_chat">聊天</a></li>
+                                <li><a href="logout">退出</a></li>
+                            {% endif %}
+                            {% if user.is_company %}
+                                <li class="dropdown">
+                                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                                        <img src="{{ user.get_image_url }}" class="img-circle" width="25" height="25"/>
+                                        admin
+                                        <b class="caret"></b>
+                                    </a>
+                                    <ul class="dropdown-menu">
+                                        <li><a href="self_information">个人信息</a></li>
+                                        <li><a href="company_information">企业信息</a></li>
+                                        <li><a rel="nofollow" href="#modal-container-modify-password"
+                                               data-toggle="modal">修改密码</a></li>
+                                        <li role="presentation" class="divider"></li>
+                                        <li><a href="logout">退出</a></li>
+                                    </ul>
+                                </li>
+                            {% endif %}
+                        {% else %}
+                            <li>
+                                <a href="login_company">登录</a>
+                            </li>
+                            <li>
+                                <a href="signup">注册</a>
+                            </li>
+                        {% endif %}
+                        <li>
+                            <a></a>
+                        </li>
+                    </ul>
+                </div>
+            </nav>
+        </div>
+    </div>
+</div>
+<div class="base_bottom">
+    <section id="content">
+        {% block content %}{% endblock %}
+    </section>
+</div>
+{% if user.is_authenticated %}
+    {% if user.is_company %}
+        <nav class="nav_show">
+            <div class="nav_title">
+                <p>管理</p>
+            </div>
+            <ul class="left_bar">
+                <a href="manage_staff">
+                    <li><p>客服人员</p></li>
+                </a>
+                <a href="manage_robot">
+                    <li><p>自动回复</p></li>
+                </a>
+                <a href="manage_answer" class="manage_answer_button">
+                    <li><p>快捷回复</p></li>
+                </a>
+                <li class="slide_animate">
+                    <p>数据图表</p>
+                    <img class="xiala" src="{% static 'images/xiala.png' %}"/>
+                </li>
+                <div class="animate_div">
+                    <a href="chatting_graph"><p class="zcd" id="zcd1">统计数据</p></a>
+                    <a href="area_graph"><p class="zcd" id="zcd2">区域分布</p></a>
+                    <a href="todays_graph"><p class="zcd" id="zcd3">今日统计数据</p></a>
+                </div>
+            </ul>
+        </nav>
+    {% endif %}{% endif %}
+</body>
+<div class="modal fade" id="modal-container-modify-password" role="dialog"
+     aria-labelledby="myModalLabel"
+     aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal"
+                        aria-hidden="true">×
+                </button>
+                <h4 class="modal-title" id="myModalLabel">
+                    修改密码
+                </h4>
+            </div>
+            <form method="post" enctype="multipart/form-data"
+                  action="{% url 'modify_password' %}">{% csrf_token %}
+                <div class="modal-body">
+                    <div class="form-group">
+                        <h4 style="font-size: 18px">原密码</h4>
+                        <input type="password" name="old_password" id="old_password"
+                               class="form-control" size="50"
+                               placeholder="原密码"
+                               style="color: black;width: 100%;padding: 6px 12px;border: 1px solid #ccc;" required/>
+                    </div>
+                    <div class="form-group">
+                        <h4 style="font-size: 18px">新密码</h4>
+                        <input type="password" name="new_password1"
+                               id="new_password1" class="form-control" size="50"
+                               placeholder="新密码"
+                               style="color: black;width: 100%;padding: 6px 12px;border: 1px solid #ccc;" required/>
+                    </div>
+                    <div class="form-group">
+                        <h4 style="font-size: 18px">确认密码</h4>
+                        <input type="password" name="new_password2" id="new_password2"
+                               class="form-control" size="50"
+                               placeholder="确认密码"
+                               style="color: black;width: 100%;padding: 6px 12px;border: 1px solid #ccc;" required/>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="submit" class="btn btn-primary">保存</button>
+                    <button type="button" class="btn btn-secondary"
+                            data-dismiss="modal">关闭
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+</html>

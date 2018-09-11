@@ -1,0 +1,15 @@
+{% extends 'base.html' %}
+{% block content %}
+    {% load static %}
+    <script>
+        set_timer(5);
+    </script>
+    <div class="m_container">
+        <div class="form-w3-agile form-notification">
+            <img src="{% static 'images/success.png' %}">
+            <p class="notification-title">验证成功</p>
+            <p class="notification-content">公司代码:<strong>{{ company_code }}</strong></p>
+            <span id="timer">秒后返回首页</span>
+        </div>
+    </div>
+{% endblock %}

@@ -1,0 +1,294 @@
+
+/************************************ 客服聊天窗口内部 ***************************************/
+.chat_messagebox {
+    width: 100%;
+    height: 65%;
+    border-bottom-style: solid;
+    border-bottom-width: 1px;
+    border-color: rgb(203, 203, 203);
+    overflow: auto;
+}
+
+.msg p {
+    font-size:7px;
+    margin-left:6%;
+    height:7px;
+}
+
+/************************************   客服聊天界面顶部图标栏 *******************************/
+.staff_head
+{
+    font-family: "Microsoft YaHei";
+    font-size: 17px;
+    height: 6%;
+    line-height: 40px;
+    padding: 0 20px;
+    background-color: rgb(148, 178, 224);
+}
+
+.staff_head .sc_title_text {
+    float:left;
+    margin:0 auto;
+    height:100%;
+}
+.sc_title_text .sc_visitor_code
+{
+    max-width: 200px;
+    margin: 0 6px;
+
+}
+.staff_head .staff_operation
+{
+    float:right;
+    margin:0 auto;
+    height:100%;
+}
+.staff_head .staff_operation a
+{
+    color: #333;
+    margin:1px 10px;
+}
+.b_icon {
+    background-image: url(../images/client.png);
+}
+
+.staff_operation i.b_icon {
+    content: '';
+    height: 16px;
+    width: 16px;
+    display: inline-block;
+    cursor: pointer;
+    vertical-align: middle;
+    margin-right: 8px;
+    margin-top: -2px;
+}
+
+.staff_operation .sc_con .b_icon {
+    background-position: -216px -160px;
+}
+.staff_operation a.sc_con:hover .b_icon {
+    background-position: -263px -78px;
+}
+
+.sc_black {
+    width:100px;
+}
+
+.staff_operation .sc_black .b_icon {
+    background-position: -245px -116px;
+}
+
+.staff_operation a.sc_black:hover .b_icon {
+    background-position: -271px -45px;
+}
+
+.staff_operation .sc_over  .b_icon {
+    background-position: -159px -218px;
+}
+
+.staff_operation a.sc_over:hover .b_icon {
+    background-position: 0 -272px;
+}
+
+/**************************************** 客服聊天发送按钮***********************************/
+.staff_send {
+    width: 100%;
+    height:30%;
+    padding-top: 0px;
+}
+
+.staff_send #send_button {
+    color: #000000;
+    background-color: #FFFF36;
+    border-color: #FFFF36;
+    margin-right: 15px;
+    margin-top:-4.5px;
+    float: right;
+    font-size: 10px;
+    height: 15%;
+    width: 9%;
+}
+/************************************    客服聊天窗口底部功能图标栏   ****************************/
+.staff_icon
+{
+    margin-top: 3px;
+    width: 100%;
+    height: 40px;
+}
+.staff_icon ul {
+    margin-top: 8px;
+    padding-left: 8px;
+    padding-bottom: 6px;
+    height:35px;
+    border-bottom-width: 1px;
+    border-bottom-style: solid;
+    border-bottom-color: rgb(224, 224, 224);
+}
+.staff_icon ul li {
+    display: inline-block;
+    width: 30px;
+    height: 30px;
+    background: url(../images/service.png) no-repeat;
+        background-position-x: 0%;
+        background-position-y: 0%;
+    margin: 0 5px;
+    cursor: pointer;
+}
+.staff_icon ul li.emotion {
+    background-position: -113px -15px;
+}
+.staff_icon ul li.emotion:hover {
+    background: url(../images/icon.png) no-repeat;
+        background-position-x: 0%;
+        background-position-y: 0%;
+    background-position: -4px -63px;
+}
+.staff_icon ul li.file {
+    position: relative;
+    cursor: pointer;
+    width: 23px;
+    height: 20px;
+    top: 6px;
+    margin: 0 5px 0 10px;
+    background: url(../images/icon.png) no-repeat;
+        background-position-x: 0%;
+        background-position-y: 0%;
+    background-position: -189px -10px;
+}
+.file {
+    position: relative;
+    display: inline-block;
+    border-radius: 4px;
+    overflow: hidden;
+    text-decoration: none;
+    text-indent: 0;
+    line-height: 20px;
+    float: left;
+    margin-right: 7px;
+}
+
+.file input {
+    position: absolute;
+    font-size: 100px;
+    right: 0;
+    top: 0;
+    opacity: 0;
+}
+.file :hover
+{
+    cursor: pointer;
+}
+.staff_icon ul li.file:hover
+{
+    background: url(../images/icon.png) no-repeat;
+        background-position-x: 0%;
+        background-position-y: 0%;
+    background-position:-190px -40px;
+}
+.staff_icon ul li.evaluate {
+    background-position: -81px -15px;
+}
+.staff_icon ul li.evaluate:hover {
+    background: url(../images/icon.png) no-repeat;
+        background-position-x: 0%;
+        background-position-y: 0%;
+    background-position: -66px -63px;
+}
+.staff_icon ul li.capture {
+    background: url(../images/icon.png) no-repeat;
+        background-position-x: 0%;
+        background-position-y: 0%;
+    background-position: -99px -62px;
+}
+.staff_icon ul li.capture:hover
+{
+    background:url(../images/icon.png) no-repeat;
+    background-position:-38px -63px;
+}
+/*************************************客服页面左侧*************************************************/
+.session_on .select-client
+{
+    font-size: 14px;
+    width: 100%;
+    height: 95%;
+    border-bottom-style: solid;
+    border-bottom-width: 3px;
+    border-color: rgb(203, 203, 203);
+    overflow:auto;
+
+}
+.session_off
+{
+
+    position:fixed;
+    margin:0 auto;
+    margin-left:0;
+    margin-top:23.7%;
+    width: 20%;
+    height: 50%;
+
+}
+.session_off .chat_num
+{
+    font-size: 14px;
+    width: 100%;
+    height: 5%;
+    border-bottom-style: solid;
+    border-bottom-width: 3px;
+    border-color: rgb(203, 203, 203);
+}
+/*************************************客服页面左边用户选择栏 **************************************/
+.select-client .client {
+
+    border-bottom-style: solid;
+    border-bottom-width: 1px;
+    border-bottom-color: rgb(203, 203, 203);
+    cursor: pointer;
+}
+.client:hover {
+    background-color: #FFFF8F !important
+}
+
+.client:active {
+    background-color: #d6edfd!important
+}
+
+.chat_staff_message{
+    text-align: left;
+    font-size:15px;
+    color: #999;
+    margin-top: 1px;
+    overflow: hidden;
+    overflow-x: hidden;
+    overflow-y: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.chat_staff_time{
+    font-size:13px;
+    color: #999;
+    float:right;
+    margin-right:10px;
+}
+/***************连接的用户名**************************/
+.content_text {
+    font-family: Helvetica, Arial, sans-serif;
+    font-size: 25px;
+    font-weight: lighter;
+    color:rgb(94,94,94);
+    margin-left: 3%;
+}
+
+.clientIp {
+    float:left;
+    text-align: left;
+    font-size:20px;
+    color: #999;
+    margin-top: 1px;
+    overflow: hidden;
+    overflow-x: hidden;
+    overflow-y: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}

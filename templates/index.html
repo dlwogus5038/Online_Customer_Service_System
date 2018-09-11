@@ -1,0 +1,37 @@
+{% extends 'base.html' %}
+{% load bootstrap3 %}
+{% block content %}
+    {% load static %}
+    {% if user.is_authenticated %}
+        {% if user.is_company %}
+            <div class="container">
+        {% else %}
+            <div class="m_container">
+        {% endif %}
+    {% else %}
+        <div class="m_container">
+    {% endif %}
+<div class="content">
+    <form class="navbar-form navbar" role="search" method="get" action="{% url 'preview' %}">
+        <div class="form-group">
+            <input type="text" name="url" id="url" class="form-control" size="50" value="http://">
+        </div>
+        <button type="submit" class="btn btn-default" style="margin:0 auto;">Submit</button>
+    </form>
+    <link rel="stylesheet" href="{% static 'css/example.css' %}">
+    <div class="form-w3-agile example_box">
+        <div class="row">
+            {% for name, code in companies %}
+                <div class="col-md-3 company_box">
+                    <a class="company_box_content btn btn-default" role="button"
+                       href="{% url 'example_company' code %}">
+                        <p id="company_name_txt">{{ name }}</p>
+                        <p>公司代码:{{ code }}</p>
+                    </a>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+</div>
+</div>
+{% endblock %}

@@ -1,0 +1,151 @@
+{% extends 'base.html' %}
+{% block content %}
+    {% load static %}
+    <div class="container">
+        <div class="staffHead">
+            <h1>客服人员{{ staff.name }}详情</h1>
+        </div>
+        <div class="form-w3-agile">
+            <table class="table  table-bordered table-hover table-condensed table-responsive">
+                <thead>
+                <tr style="color:#ffffff;font-size: 20px; ">
+                    <th width="30" style="text-align: center">
+                        #
+                    </th>
+                    <th style="text-align: center">
+                        客服姓名
+                    </th>
+                    <th style="text-align: center">
+                        会话开始时间
+                    </th>
+                    <th style="text-align: center">
+                        会话时长
+                    </th>
+                    <th style="text-align: center">
+                        访客IP
+                    </th>
+                    <th style="text-align: center">
+                        访客评价
+                    </th>
+                    <th style="text-align: center">
+                        访客地区
+                    </th>
+                    <th style="text-align: center">
+                        操作
+                    </th>
+                </tr>
+                </thead>
+                <tbody>
+                {% for datum, num, chatting_record in data %}
+                    <tr style="color:#ffffff">
+                        <td style="text-align: center">
+                            {{ num }}
+                        </td>
+                        <td style="text-align: center">
+                            {{ staff.username }}
+                        </td>
+                        <td style="text-align: center">
+                            {{ datum.start_time }}
+                        </td>
+                        <td style="text-align: center">
+                            {{ datum.chatting_time }}
+                        </td>
+                        <td style="text-align: center">
+                            {{ datum.user_IP }}
+                        </td>
+                        <td style="text-align: center">
+                            {% if datum.score == -1 %}
+                                未评
+                            {% else %}
+                                {{ datum.score }}.0
+                            {% endif %}
+                        </td>
+                        <td style="text-align: center">
+                            {% if datum.address %}
+                                {{ datum.address }}
+                            {% else %}
+                                暂无信息
+                            {% endif %}
+                        </td>
+                        <td style="text-align: center">
+                            <a rel="nofollow" href="#modal-container-chatting-record-{{ num }}" role="button"
+                               class="btn btn-default btn-sm" data-toggle="modal">内容</a>
+                        </td>
+                    </tr>
+                    <div class="modal fade" id="modal-container-chatting-record-{{ num }}" role="dialog"
+                         aria-labelledby="myModalLabel" aria-hidden="true">
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+                                        ×
+                                    </button>
+                                    <h4 class="modal-title" id="myModalLabel">
+                                        会话记录
+                                    </h4>
+                                    <div class="chat_messagebox">
+                                        {% for record in chatting_record %}
+                                            {% if record.created_at > datum.start_time and record.created_at < datum.end_time %}
+                                                {% if record.is_send %}
+                                                    <ul class="msg_box">
+                                                        <div class="user_msg"
+                                                             id="staff_send{{ datum.id }}0{{ forloop.counter }}">
+                                                            <p>{{ staff.username }} {{ record.created_at }}</p>
+                                                            <img class="avartar" width="30" height="30"
+                                                                 src= {{ staff.get_image_url }}>
+                                                            <script>
+                                                                staff_detail('{{ record.Data }}','{{ datum.id }}','{{ forloop.counter }}')
+                                                            </script>
+                                                        </div>
+                                                    </ul>
+                                                {% else %}
+                                                    <ul class="msg_box">
+                                                        <div class="msg"
+                                                             id="staff_send{{ datum.id }}1{{ forloop.counter }}">
+                                                            <p>{{ datum.user_IP }} {{ record.created_at }}</p>
+                                                            <img class="avartar" width="30" height="30"
+                                                                 src="{% static 'images/chat.png' %}">
+                                                            <script>
+                                                                user_detail('{{ record.Data }}', {{ datum.id }}, {{ forloop.counter }})
+                                                            </script>
+                                                        </div>
+                                                    </ul>
+                                                {% endif %}
+                                            {% endif %}
+                                        {% endfor %}
+                                        <p>会话已结束</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                {% endfor %}
+                </tbody>
+            </table>
+            <div class="btn-group" role="group">
+                {% if data_list.has_previous %}
+                    <a href="?staff_id={{ staff.id }}&page={{ data_list.previous_page_number }}" role="button"
+                       class="btn btn-default btn-sm"
+                       title="上一页">上一页</a>
+                {% else %}
+                    <a role="button" class="btn btn-default btn-sm" title="上一页">上一页</a>
+                {% endif %}
+                {% for p in page_range %}
+                    {% ifequal p data_list.number %}
+                        <button class="btn btn-default btn-sm active" title="第{{ p }}页">{{ p }}</button>
+                    {% else %}
+                        <a href="?staff_id={{ staff.id }}&page={{ p }}" role="button" class="btn btn-default btn-sm"
+                           title="第{{ p }}页">{{ p }}</a>
+                    {% endifequal %}
+                {% endfor %}
+                {% if data_list.has_next %}
+                    <a href="?staff_id={{ staff.id }}&page={{ data_list.next_page_number }}" role="button"
+                       class="btn btn-default btn-sm"
+                       title="下一页">下一页</a>
+                {% else %}
+                    <a role="button" class="btn btn-default btn-sm" title="下一页">下一页</a>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+{% endblock %}

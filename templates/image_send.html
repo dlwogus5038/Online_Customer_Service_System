@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html>
+<head>
+    {% load static %}
+    <link type="favicon" rel="shortcut icon" href="{% static 'images/favicon.ico' %}">
+</head>
+<body>
+<form method="post" action="{% url 'send_image' %}" enctype="multipart/form-data">
+    {% csrf_token %}
+    <input type="file" name="new_file" accept="image/jpg,image/jpeg,image/png,image/bmp,image/gif"/>
+    <input type="submit" value="提交"/>
+</form>
+</body>
+</html>

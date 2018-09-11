@@ -1,0 +1,14 @@
+.company_box {
+    margin-top:10px;
+    margin-bottom: 10px;
+}
+
+.company_box #company_name_txt {
+    font-size: 30px;
+}
+
+.company_box_content {
+    background: white;
+    height: 80px;
+    width: 100%;
+}

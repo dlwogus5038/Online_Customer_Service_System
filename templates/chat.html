@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+{% load static %}
+<head>
+    {% load static %}
+    <link type="favicon" rel="shortcut icon" href="{% static 'images/favicon.ico' %}">
+    <script src={% static  'bootstrap/js/jquery.min.js' %}></script>
+    <script src="{% static 'js/jquery.emoji.js' %}"></script>
+    <script type="text/javascript" src="{% static 'js/user_chat.js' %}"></script>
+    <link rel="stylesheet" href="{% static 'bootstrap/css/bootstrap.min.css' %}">
+    <link rel="stylesheet" href="{% static 'css/chatStyle.css' %}" type="text/css">
+</head>
+<body onload="init('{{ company_code }}', '{{ company_user.chatterbot_nickname }}', '{{ company_user.get_chatterbot_image_url }}')">
+<div class="chat_box">
+    <div class="chat_head">
+        <img src="{%  static 'images/logo_white.png' %}" class="chat_logo" width="50px">
+        <img src="{%  static 'images/icon_close.png' %}" class="close" onclick="evaluate_staff()">
+    </div>
+    <div class="chat_messagebox" id="chat_messagebox">
+        <ul id="chat">
+        </ul>
+    </div>
+    <div class="chat_send">
+        <div class="chat_icon">
+            <ul>
+                <li id="emotion" class="emotion" title="表情" style="display: inline-block;float:left">
+                </li>
+                <li id="file" class="file" title="未选择文件" style="display: inline-block;float:left"
+                    onclick="new_send_image()">
+                </li>
+                <li id="staff" class="staff" title="转人工" style="display: inline-block;float:left"
+                    onclick="connect_staff()">
+                </li>
+            </ul>
+        </div>
+        <textarea type="text" placeholder="按Ctrl+Enter键发送消息" class="form_control" id="InputMessage"
+                  style="resize: none;" cols="97"
+                  rows="8"></textarea>
+        <button class="btn btn-primary" id="send_button" onclick="send()" type="submit">Send</button>
+    </div>
+</div>
+</body>
+</html>

@@ -1,0 +1,63 @@
+
+.modal-header {
+    padding: 0;
+    border-bottom: 1px solid #e5e5e5;
+}
+/**************************************聊天背景********************************************/
+.chat_messagebox {
+    width: 100%;
+    height: 80%;
+    background-color: rgb(156, 186, 222);
+    overflow: auto;
+}
+
+
+
+/*************************************客服发出的消息****************************************/
+.msg_box {
+    margin-top: 6px;
+}
+.msg_box .user_msg {
+    text-align: right;
+}
+.msg_box .user_msg .avartar {
+    float: right;
+    margin-right: 10px;
+    border-radius: 3px;
+}
+.msg_box .user_msg .text {
+    background-color: #FFFF36;
+    margin-right: 7px;
+}
+/*************************************用户发出的消息*****************************************/
+.msg_box .msg {
+    text-align: left;
+}
+.msg_box .msg .avartar {
+    float: left;
+    margin: 0 10px 0 0;
+    border-radius: 3px;
+}
+.msg_box .text {
+    display: inline-block;
+    position: relative;
+    padding: 0 10px;
+    max-width: calc(100% - 40px);
+    min-height: 30px;
+    line-height: 2.5;
+    font-size: 12px;
+    text-align: left;
+    word-break: break-all;
+    background-color: #fafafa;
+    border-radius: 4px;
+}
+.user_msg p
+{
+    font-size:7px;
+    margin-right:7%;
+}
+.msg p
+{
+    font-size:7px;
+    margin-left:7%;
+}

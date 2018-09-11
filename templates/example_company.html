@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>{{ company.username }}</title>
+    {% load static %}
+    <link type="favicon" rel="shortcut icon" href="{% static 'images/favicon.ico' %}">
+    <link rel="stylesheet" href="{% static 'bootstrap/css/bootstrap.min.css' %}">
+    <link rel="stylesheet" href="{% static 'css/baseStyle.css' %}" type="text/css">
+    <script src="{% static  'bootstrap/js/jquery.min.js' %}"></script>
+    <script src="{% static  'bootstrap/js/bootstrap.min.js' %}"></script>
+    <script src="{% static  'js/message.js' %}"></script>
+    <script src="{% static  'js/verification.js' %}"></script>
+    <link rel="stylesheet" href="{% static 'css/baseStyle.css' %}" type="text/css">
+    <link rel="stylesheet" href="{% static 'css/style.css' %}" media="all"/>
+    <link rel="stylesheet" href="{% static 'css/message.css' %}" media="all"/>
+    <link rel="stylesheet" href="{% static 'css/forgetPassword.css' %}" media="all"/>
+    <meta name="viewport" content="width=device-width,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no">
+</head>
+<body onload="init_data()">
+<script src="{% static 'js/chat_interface.js' %}?compay_code={{ company.company_code }}"></script>
+<div class="base_container">
+    <div class="row clearfix">
+        <div class="column">
+            <nav class="navbar navbar-default navbar-fixed-top" role="navigation">
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle" data-toggle="collapse"
+                            data-target="#bs-example-navbar-collapse-1"><span
+                            class="sr-only">Toggle navigation</span><span class="icon-bar"></span><span
+                            class="icon-bar"></span></button>
+                    <a class="navbar-brand" href="{% url 'index' %}">思密答</a>
+                    <a class="navbar-brand"
+                       href="{% url 'example_company' company.company_code %}">{{ company.company_name }}</a>
+                </div>
+            </nav>
+        </div>
+    </div>
+</div>
+<div class="base_bottom">
+    <section id="content">
+        {% block content %}{% endblock %}
+    </section>
+</div>
+</body>
+</html>

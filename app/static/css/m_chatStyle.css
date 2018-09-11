@@ -1,0 +1,282 @@
+.chat_box {
+    width: 100%;
+    height: 100%;
+    position:absolute;
+    margin: 0px 0px;
+    border-style: solid;
+    border-width: 1px;
+    border-color: #D8D8D8;
+}
+
+.chat_head {
+    margin-top: 0%;
+    width: 100%;
+    height: 8%;
+    background-color: rgb(148, 178, 224);
+}
+
+.chat_messagebox {
+    width: 100%;
+    height: 79%;
+    background-color: rgb(156, 186, 222);
+    overflow: auto;
+}
+
+.chat_messagebox img{
+    width:85px;
+    height:85px;
+}
+.chat_send {
+    width: 100%;
+    height: 13%;
+    padding-top: 0px;
+}
+
+.chat_send .chat_msg{
+    width:100%;
+    height:50%;
+}
+
+.form_control {
+    width: 85%;
+    height: 100%;
+    padding: 15px;
+    border: none;
+    outline: none;
+    resize: none;
+    font-size:45px;
+}
+
+.chat_send #send_button {
+    color: #000000;
+    background-color: #FFFF36;
+    border-color: #FFFF36;
+    float: right;
+    font-size: 30px;
+    height: 100%;
+    width: 15%;
+}
+
+.chat_icon {
+    width: 100%;
+    height: 50%;
+}
+
+.chat_icon ul {
+    padding-left: 0px;
+    height:100%;
+    border-bottom-width: 1px;
+    border-bottom-style: solid;
+    border-bottom-color: rgb(224, 224, 224);
+}
+
+.chat_icon ul li {
+    display: inline-block;
+    height: 100px;
+    width:100px;
+    margin: 0 5px;
+    cursor: pointer;
+}
+
+.chat_icon ul li img{
+    width:100%;
+    height:100%;
+}
+
+.chat_icon ul li.emotion {
+    position: relative;
+    cursor: pointer;
+    margin: 0 5px 0 15px;
+}
+
+
+.chat_icon ul li.file {
+    position: relative;
+    cursor: pointer;
+    margin: 0 5px 0 14px;
+}
+
+.chat_icon ul li.staff{
+    position: relative;
+    cursor: pointer;
+    height:92px;
+    margin: 0 5px 0 2px;
+}
+
+
+.chat_messagebox ul {
+    padding-left: 10px;
+    list-style: none;
+}
+
+.msg_box {
+    margin-top: 15px;
+}
+
+.msg_box li {
+    margin-bottom: 20px;
+}
+
+.msg_box .time {
+    text-align: center;
+}
+
+.msg_box .time > span {
+    display: inline-block;
+    font-size: 35px;
+}
+
+.msg_box .msg .avartar {
+    float: left;
+    margin: 0 20px 0 0;
+    border-radius: 10px;
+}
+
+.msg_box .user_msg .avartar {
+    float: right;
+    margin-right:20px;
+    border-radius: 10px;
+}
+
+.msg_box .user_msg {
+    text-align: right;
+}
+
+.msg_box .text {
+    display: inline-block;
+    position: relative;
+    padding: 0px 15px;
+    max-width: calc(100% - 40px);
+    min-height: 30px;
+    line-height: 2.5;
+    font-size: 40px;
+    text-align: left;
+    word-break: break-all;
+    background-color: #fafafa;
+    border-radius: 12px;
+}
+
+.msg_box .user_msg .text {
+    background-color: #FFFF36;
+    margin-right: 7px;
+}
+
+.qq_face {
+    background: #fff;
+    border: 2px #000000 solid;
+    top:100px;
+    width:100%;
+    height:330px;
+}
+
+.qq_face img{
+    height:65px;
+    width:65px;
+}
+.qq_face table td {
+    padding: 0px;
+}
+
+.qq_face table td img {
+    cursor: pointer;
+    border: 1px #fff solid;
+}
+
+.qq_face table td img:hover {
+    border: 1px #0066cc solid;
+}
+
+.close {
+    margin-right: 10px;
+    margin-top: 7px;
+    width:100px;
+}
+
+.chat_logo {
+    margin-left: 10px;
+}
+
+.black_overlay {
+	position: fixed;
+	z-index:1002;
+	width: 100%;
+	height: 100%;
+	top: 0;
+	left: 0;
+	filter: alpha(opacity=80);
+	opacity: 0.3;
+	overflow: hidden;
+	background-color: #000;
+}
+
+
+.starability-container {
+    position: absolute;
+    background: rgb(255, 255, 255);
+    border: 1px rgb(148, 190, 244) solid;
+    border-radius: 20px;
+    font-size:30px;
+    z-index:1003;
+}
+
+.starability-container .eval_title{
+    font-family: "Microsoft YaHei";
+    text-align:center;
+    font-size:50px;
+    background:#D9E5FF;
+    border-bottom: 3px solid #D5D6E2;
+}
+.starability-container form{
+    font-family: "Microsoft YaHei";
+    width:500px;
+}
+
+.starability-container legend{
+    font-size:35px;
+    text-align:center;
+}
+
+.starability-slot {
+    display: block;
+    position: relative;
+    width: 300px;
+    border: none
+}
+
+.starability-slot > input {
+    position: absolute;
+    opacity: 0
+}
+
+.starability-slot > input:checked ~ label, .starability-slot > input:focus ~ label, .starability-slot > input:hover ~ label {
+    background-position: 0 -60px
+}
+
+.starability-slot > input:focus + label {
+    outline: 1px dotted #999
+}
+
+.starability-slot > label {
+    position: relative;
+    display: inline-block;
+    float:right;
+    width: 60px;
+    height: 60px;
+    color: transparent;
+    cursor: pointer;
+    background-image: url(../images/icons@2x.png);
+    background-repeat: no-repeat
+}
+
+.starability-slot > input:checked ~ label, .starability-slot > input:focus ~ label, .starability-slot > input:hover ~ label {
+    transition: background-position .7s
+}
+
+#evaluate_button{
+    float:right;
+    margin-right: 40px;
+    margin-bottom:10px;
+    font-size:30px;
+    width:120px;
+    height:60px;
+}

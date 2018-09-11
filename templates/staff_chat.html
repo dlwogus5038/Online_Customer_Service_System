@@ -1,0 +1,35 @@
+{% extends 'staff_base.html' %}
+{% block content %}
+    {% load static %}
+    <script src="{% static 'js/jquery.emoji.js' %}"></script>
+    <script type="text/javascript">
+        var num = {{ processNum }};
+        check_process_num(num);
+    </script>
+    <div class="staff_box_c">
+        <div class="session">
+            <div class="session_on">
+                <div class="chat_num">
+                    会话中心
+                </div>
+                <div class="select-client">
+                </div>
+            </div>
+        </div>
+    </div>
+    <div id="staff_box_r">
+        <div class="tabbable" id="tabs-605696">
+            <p class="tab_title">常用信息</p>
+            <div class="tab-pane" id="panel-97847">
+                {% for answer in answer_list %}
+                    <a onclick="quick_message('{{ user.process_num }}', '{{ answer.answer }}')">
+                        <p>{{ answer.answer }}</p></a>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+    </div>
+    <script type="text/javascript">
+        addClient('{{ user.get_image_url }}');
+    </script>
+{% endblock %}

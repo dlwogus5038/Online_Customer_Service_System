@@ -1,0 +1,56 @@
+{% extends 'base.html' %}
+{% block content %}
+    <div class="container">
+        <div class="main-agileits">
+            <div class="form-w3-agile">
+                <h1 class="sub-agileits-w3layouts">企业信息</h1>
+                <div class="my_body" style="color:#ffffff">
+                    {% if user.is_authenticated %}
+                        {% if user.is_company %}
+                            <form method="post" enctype="multipart/form-data"
+                                  action="{% url 'modify_company_information' %}">
+                                {% csrf_token %}
+                                <div class="form-group">
+                                    <label>公司代码:</label>
+                                    <b>{{ user.company_code }}</b>
+                                </div>
+                                <div class="form-group">
+                                    <label> 公司名称:</label>
+                                    <b>{{ user.company_name }}</b>
+                                </div>
+                                <div class="form-group" style="margin-left:18%;height:30px">
+                                    <label>联系人:</label>
+                                    <input style="width:30%;" type="text" id="linkman" name="linkman"
+                                           value="{{ user.linkman }}" required=""/>
+                                </div>
+                                <div class="form-group" style="margin-left:16%;height:30px">
+                                    <label>联系电话:</label>
+                                    <input style="width:30%" type="text" id="phonenumber" name="phonenumber"
+                                           value="{{ user.phonenumber }}" required=""/>
+                                </div>
+                                <div class="form-group" style="margin-left:7%;height:30px">
+                                    <label>自动回复机器人昵称:</label>
+                                    <input style="width:30%" type="text" id="chatterbot_nickname"
+                                           name="chatterbot_nickname"
+                                           value="{{ user.chatterbot_nickname }}" required=""/>
+                                </div>
+                                <div class="form-group">
+                                    <img src="{{ user.get_chatterbot_image_url }}" class="img-circle" width="25"
+                                         height="25"/>
+                                    <label for="image">自动回复机器人头像（目前:<a
+                                            href="{{ user.get_chatterbot_image_url }}">{{ user.chatterbot_image }}</a>）</label>
+                                    <input type="file" id="chatterbot_image" name="chatterbot_image" placeholder="机器人头像"
+                                           style="margin:0 40%"
+                                           value={{ user.get_chatterbot_image_url }}>
+                                </div>
+                                <div class="submit-w3l">
+                                    <input type="submit" value="保存">
+                                </div>
+                            </form>
+                        {% endif %}
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

@@ -1,0 +1,82 @@
+{% extends 'base.html' %}
+{% block content %}
+    <div class="container">
+        <div class="main-agileits">
+            <div class="form-w3-agile">
+                <h1 class="sub-agileits-w3layouts">个人信息</h1>
+                <div class="my_body" style="color:#ffffff">
+                    {% if user.is_authenticated %}
+                        {% if user.is_company %}
+                            {% csrf_token %}
+                            <div class="form-group">
+                                <label for="username">担任角色:</label>
+                                <b>管理员</b>
+                            </div>
+                            <div class="form-group">
+                                <label>账号:</label>
+                                <b>{{ user.username }}</b>
+                            </div>
+                            <div class="form-group">
+                                <label>姓名:</label>
+                                <b>admin</b>
+                            </div>
+                            <div class="form-group">
+                                <label for="email">邮箱:</label>
+                                <b>{{ user.email }}</b>
+                            </div>
+                            <form method="post" enctype="multipart/form-data" action="{% url 'modify_image' %}">
+                                {% csrf_token %}
+                                <div class="form-group">
+                                    <img src="{{ user.get_image_url }}" class="img-circle" width="25" height="25"/>
+                                    <label for="image">头像（目前:<a
+                                            href="{{ user.get_image_url }}">{{ user.image }}</a>）</label>
+                                    <input type="file" id="image" name="image" style="margin:0 40%"
+                                           value={{ user.get_image_url }}>
+                                </div>
+                                <div class="submit-w3l">
+                                    <input type="submit" value="保存">
+                                </div>
+                            </form>
+                        {% endif %}
+                        {% if not user.is_company and not user.is_admin %}
+                            <div class="form-group">
+                                <label for="username">担任角色:</label>
+                                <b>客服人员</b>
+                            </div>
+                            <div class="form-group">
+                                <label>账号:</label>
+                                <b>{{ user.username }}</b>
+                            </div>
+                            <div class="form-group">
+                                <label>姓名:</label>
+                                <b>{{ user.name }}</b>
+                            </div>
+                            <div class="form-group">
+                                <label for="email">邮箱:</label>
+                                <b>{{ user.email }}</b>
+                            </div>
+                            <form method="post" enctype="multipart/form-data" action="{% url 'modify_nickname' %}">
+                                {% csrf_token %}
+                                <div class="form-group" style="height:50px">
+                                    <label>昵称:</label>
+                                    <input style="width:30%" type="text" id="nickname" name="nickname"
+                                           value="{{ user.nickname }}" required=""/>
+                                </div>
+                                <div class="form-group">
+                                    <img src="{{ user.get_image_url }}" class="img-circle" width="25" height="25"/>
+                                    <label for="image">头像（目前:<a
+                                            href="{{ user.get_image_url }}">{{ user.image }}</a>）</label>
+                                    <input type="file" id="image" name="image" placeholder="头像" style="margin:0 40%"
+                                           value={{ user.get_image_url }}>
+                                </div>
+                                <div class="submit-w3l">
+                                    <input type="submit" value="保存">
+                                </div>
+                            </form>
+                        {% endif %}
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

@@ -1,0 +1,31 @@
+{% extends 'base.html' %}
+{% block content %}
+    {% load static %}
+    <div class="container">
+        <div class="staffHead">
+            <h1>区域分布</h1>
+        </div>
+        <div class="form-w3-agile">
+            <div class="ui-datepicker-date">
+                <p class="date_label">From.</p>
+                <input name="startDate" id="startDate" class="date startDate" readonly value="2017-12-20" type="text"
+                       onchange="draw_area_graph();">
+                <p class="date_label">To.</p>
+                <input name="endDate" id="endDate" class="date endDate" readonly value="{{ today_date }}" type="text"
+                       onchange="draw_area_graph();">
+            </div>
+            <tr>
+                <td id="graph" colspan="7" rowspan="8">
+                    <div id="graph"></div>
+                </td>
+            </tr>
+            <script type="text/javascript">
+                init_area_graph();
+                {% for date, area in data %}
+                    make_record('{{ date }}', '{{ area }}');
+                {% endfor %}
+                draw_area_graph();
+            </script>
+        </div>
+    </div>
+{% endblock %}

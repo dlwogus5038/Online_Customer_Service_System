@@ -1,0 +1,4 @@
+example:
+    stage: test
+    script:
+    - echo "hello world"

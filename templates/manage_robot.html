@@ -1,0 +1,178 @@
+{% extends 'base.html' %}
+{% block content %}
+    <div class="container">
+        <div class="staffHead">
+            <h1>设置'{{ robot_name }}'</h1>
+        </div>
+        <div class="modal fade" id="modal-container-add-response" role="dialog" aria-labelledby="myModalLabel"
+             aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                        <h4 class="modal-title" id="myModalLabel">
+                            添加关键词
+                        </h4>
+                    </div>
+                    <form method="post" enctype="multipart/form-data"
+                          action="{% url 'add_response' %}">{% csrf_token %}
+                        <div class="modal-body">
+                            <h4>问题</h4>
+                            <input type="text" name="text" class="form-control" size="50"
+                                   placeholder="问题" required/>
+                            <h4>答案</h4>
+                            <textarea name="statement_text"
+                                      class="form-control"
+                                      style="resize: none;" cols="50" rows="5" placeholder="答案"
+                                      required></textarea>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="submit" class="btn btn-primary">保存</button>
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">关闭</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+        <div class="form-w3-agile">
+            <a rel="nofollow" href="#modal-container-add-response" role="button" class="btn btn-default" id="top_button"
+               data-toggle="modal">设置问题</a>
+            <a rel="nofollow" href="{% url 'set_faq' %}" role="button" class="btn btn-default" id="top_button"
+               data-toggle="modal">设置常见问题</a>
+            <div class="top-buttons-agileinfo">
+                {% if user.is_set_faq %}
+                    <a href="{% url 'modify_faq_to_robot' %}">机器人</a>
+                    <a class=" active">自定义</a>
+                {% else %}
+                    <a class=" active">机器人</a>
+                    <a href="{% url 'modify_faq_to_company' %}">自定义</a>
+                {% endif %}
+            </div>
+            <table class="table  table-bordered table-hover table-condensed table-responsive">
+                <thead>
+                <tr style="color:#ffffff;font-size: 20px;">
+                    <th width="30" style="text-align: center">
+                        #
+                    </th>
+                    <th style="text-align: center">
+                        问题
+                    </th>
+                    <th style="text-align: center">
+                        最后更新时间
+                    </th>
+                    <th style="text-align: center">
+                        咨询量
+                    </th>
+                    <th width="140" style="text-align: center">
+                        操作
+                    </th>
+                </tr>
+                </thead>
+                <tbody>
+                {% for response, num in responses %}
+                    <tr style="color:#ffffff">
+                        <td>
+                            {{ num }}
+                        </td>
+                        <td>
+                            {{ response.text }}
+                        </td>
+                        <td>
+                            {{ response.created_at|date:"Y-m-d H:i:s" }}
+                        </td>
+                        <td>
+                            {{ response.occurrence }}
+                        </td>
+                        <td style="color:#000000">
+                            <a rel="nofollow" href="#modal-container-delete-response-{{ response.id }}" role="button"
+                               class="btn btn-danger btn-sm" data-toggle="modal">删除</a>
+                            <div class="modal fade" id="modal-container-delete-response-{{ response.id }}" role="dialog"
+                                 aria-labelledby="myModalLabel" aria-hidden="true">
+                                <div class="modal-dialog">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h4 class="modal-title" id="myModalLabel">
+                                                删除确认
+                                            </h4>
+                                        </div>
+                                        <div class="modal-body">
+                                            <h4>您确定要删除该回复信息吗？</h4>
+                                        </div>
+                                        <div class="modal-footer">
+                                            <a role="button" class="btn btn-danger"
+                                               href="{% url 'delete_response' response.id %}">确定</a>
+                                            <button type="button" class="btn btn-default" data-dismiss="modal">取消
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <a rel="nofollow" href="#modal-container-modify-response-{{ response.id }}" role="button"
+                               class="btn btn-default btn-sm" data-toggle="modal">修改</a>
+                            <div class="modal fade" id="modal-container-modify-response-{{ response.id }}" role="dialog"
+                                 aria-labelledby="myModalLabel" aria-hidden="true">
+                                <div class="modal-dialog">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+                                                ×
+                                            </button>
+                                            <h4 class="modal-title" id="myModalLabel">
+                                                修改关键词
+                                            </h4>
+                                        </div>
+                                        <form method="post" enctype="multipart/form-data"
+                                              action="{% url 'modify_response' response.id %}">{% csrf_token %}
+                                            <div class="modal-body">
+                                                <h4>问题</h4>
+                                                <input type="text" name="text" class="form-control"
+                                                       size="50" placeholder="问题" value="{{ response.text }}"
+                                                       style="color:black; padding:0px 10px"
+                                                       required/>
+                                                <h4>答案</h4>
+                                                <textarea style="color:black;" type="text" name="statement_text"
+                                                          class="form-control"
+                                                          style="resize: none;" cols="50" rows="5" placeholder="答案"
+                                                          required>{{ response.statement_text }}</textarea>
+                                            </div>
+                                            <div class="modal-footer">
+                                                <button type="submit" class="btn btn-primary">保存</button>
+                                                <button type="button" class="btn btn-secondary" data-dismiss="modal">
+                                                    关闭
+                                                </button>
+                                            </div>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                        </td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+            <div class="btn-group" role="group">
+                {% if response_list.has_previous %}
+                    <a href="?page={{ response_list.previous_page_number }}" role="button"
+                       class="btn btn-default btn-sm"
+                       title="上一页">上一页</a>
+                {% else %}
+                    <a role="button" class="btn btn-default btn-sm" title="上一页">上一页</a>
+                {% endif %}
+                {% for p in page_range %}
+                    {% ifequal p response_list.number %}
+                        <button class="btn btn-default btn-sm active" title="第{{ p }}页">{{ p }}</button>
+                    {% else %}
+                        <a href="?page={{ p }}" role="button" class="btn btn-default btn-sm"
+                           title="第{{ p }}页">{{ p }}</a>
+                    {% endifequal %}
+                {% endfor %}
+                {% if response_list.has_next %}
+                    <a href="?page={{ response_list.next_page_number }}" role="button" class="btn btn-default btn-sm"
+                       title="下一页">下一页</a>
+                {% else %}
+                    <a role="button" class="btn btn-default btn-sm" title="下一页">下一页</a>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+{% endblock %}

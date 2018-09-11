@@ -1,0 +1,33 @@
+{% extends 'base.html' %}
+{% block content %}
+    {% load static %}
+    <div class="container">
+        <div class="staffHead">
+            <h1>统计数据</h1>
+        </div>
+        <div class="form-w3-agile">
+            <div class="ui-datepicker-date">
+                <p class="date_label">From.</p>
+                <input name="startDate" id="startDate" class="startDate" readonly value="2017-12-01"
+                       type="text"
+                       onchange="draw_chatting_graph();">
+                <p class="date_label">To.</p>
+                <input name="endDate" id="endDate" class="endDate" readonly value="{{ today_date }}"
+                       type="text"
+                       onchange="draw_chatting_graph();">
+            </div>
+            <tr>
+                <td id="graph" colspan="7" rowspan="8">
+                    <div id="graph"></div>
+                </td>
+            </tr>
+            <script type="text/javascript">
+                init_graph();
+                {% for date, num in data %}
+                    make_record('{{ date }}', {{ num }});
+                {% endfor %}
+                draw_chatting_graph();
+            </script>
+        </div>
+    </div>
+{% endblock %}

@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html>
+{% load static %}
+<script src="{% static 'js/chat_interface.js' %}?compay_code={{ company.company_code }}"></script>
+<link rel="stylesheet" href="{% static 'css/chatStyle.css' %}" type="text/css">
+<head>
+    <meta charset="utf-8">
+</head>
+<body class="suspend_body">
+<div class="suspend">
+    <dl>
+        <dt class="IE6PNG"></dt>
+        <dd class="new_chat" onclick="open_chat('{{ company_code }}')"><img src="{% static 'images/blue_chat.png' %}">
+            <p>弹出型</p></dd>
+        <dd class="iframe_chat" onclick="ifm_chat('{{ company_code }}')"><img
+                src="{% static 'images/green_chat.png' %}">
+            <p>嵌入型</p></dd>
+    </dl>
+</div>
+</body>
+</html>

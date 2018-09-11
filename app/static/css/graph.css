@@ -1,0 +1,44 @@
+body {
+    margin: 0;
+    padding: 0;
+    text-align: left;
+}
+
+.everyWeekDay .weekday, .everyDay .days { /*解决span不支持width属性*/
+    display: -moz-inline-box;
+    display: inline-block;
+    margin: 5px 0 0 20px;
+    text-align: center;
+    width: 20px;
+    border: 1px solid #F7F7F7;
+    cursor: pointer;
+}
+
+.marginTop {
+    margin-top: 5px;
+}
+
+.selectStyle {
+    padding-left: 10px;
+    border: none;
+    border-radius: 3px;
+    outline: none;
+    appearance: none;
+    -moz-appearance: none;
+    -webkit-appearance: none;
+    margin: 0 10px 0 10px;
+    width: 60px;
+    border-color: #0FB9EF;
+    color: #0FB9EF;
+}
+
+#txt_calendar {
+    margin-left: 20px;
+    margin-top: 20px;
+    background-color: #cfcfcf;
+    border: none;
+    border-radius: 5px;
+    height: 25px;
+    padding-left: 10px;
+    outline: none;
+}

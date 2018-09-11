@@ -1,0 +1,23 @@
+{% extends 'base.html' %}
+{% block content %}
+    {% load static %}
+    <div class="container">
+        <div class="staffHead">
+            <h1>今天的统计（{{ today_date }}）</h1>
+        </div>
+        <div class="form-w3-agile">
+            <tr>
+                <td id="graph" colspan="7" rowspan="8">
+                    <div id="graph"></div>
+                </td>
+            </tr>
+            <script type="text/javascript">
+                init_graph();
+                {% for time, num in data %}
+                    make_record('{{ time }}', {{ num }});
+                {% endfor %}
+                draw_todays_graph();
+            </script>
+        </div>
+    </div>
+{% endblock %}

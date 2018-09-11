@@ -1,0 +1,83 @@
+{% extends 'base.html' %}
+{% block content %}
+    <div class="container" id="container-main">
+        <div class="col-xs-4">
+            <div class="form-w3-agile">
+                <div class="panel-heading">现在设置的问题（至多五个）</div>
+                <table class="table  table-bordered table-hover table-condensed table-responsive">
+                    <thead>
+                    <tr style="color:#ffffff;font-size: 20px;">
+                        <th width="100" style="text-align: center">操作</th>
+                        <th style="text-align: center">问题</th>
+                    </thead>
+                    <tbody>
+                    {% for response in show_responses %}
+                        <tr style="color:#ffffff">
+                            <td>
+                                {% if forloop.first %}
+                                    <button class="btn btn-link" id="link_btn" disabled><span class="glyphicon"></span>
+                                    </button>
+                                {% else %}
+                                    <a class="link_btn" role="button"
+                                       href="{% url 'up_question' forloop.counter %}">
+                                        <span class="glyphicon glyphicon-chevron-up"></span>
+                                    </a>
+                                {% endif %}
+                                {% if forloop.last %}
+                                    <button class="btn btn-link" id="link_btn" disabled><span class="glyphicon"></span>
+                                    </button>
+                                {% else %}
+                                    <a class="link_btn" role="button" href="{% url 'down_question' forloop.counter %}">
+                                        <span class="glyphicon glyphicon-chevron-down"></span>
+                                    </a>
+                                {% endif %}
+                                <a class="link_btn" role="button"
+                                   href="{% url 'delete_question' forloop.counter %}">
+                                    <span class="glyphicon glyphicon-remove"></span>
+                                </a>
+                            </td>
+                            <td>
+                                {{ response.text }}
+                            </td>
+                        </tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <div class="col-xs-1"></div>
+        <div class="col-xs-4" id="alter-activities">
+            <div class="form-w3-agile">
+                <div class="panel-heading">问题库</div>
+                <table class="table  table-bordered table-hover table-condensed table-responsive">
+                    <thead>
+                    <tr style="color:#ffffff;font-size: 20px;">
+                        <th width="80" style="text-align: center">操作</th>
+                        <th style="text-align: center">问题</th>
+                    </thead>
+                    <tbody>
+                    {% for response in hide_responses %}
+                        <tr style="color:#ffffff">
+                            <td>
+                                {% if show_length < 5 %}
+                                    <a class="btn btn-link" role="button" id="link_btn"
+                                       href="{% url 'add_question' response.id %}">
+                                        <span class="glyphicon glyphicon-plus"></span>
+                                    </a>
+                                {% else %}
+                                    <button class="btn btn-link" id="link_btn" disabled>
+                                        <span class="glyphicon"></span>
+                                    </button>
+                                {% endif %}
+                            </td>
+                            <td>
+                                {{ response.text }}
+                            </td>
+                        </tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+{% endblock %}
