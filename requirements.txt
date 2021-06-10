@@ -7,7 +7,7 @@ certifi==2017.11.5
 chardet==3.0.4
 ChatterBot==0.7.6
 chatterbot-corpus==1.0.1
-Django==1.11.8
+Django==2.2.24
 django-bootstrap3==9.1.0
 django-celery==3.2.2
 future==0.16.0
